@@ -140,7 +140,7 @@ export default [
         code: 'Backspace',
     },
     {
-        small: 'CapsLock',
+        small: 'Caps',
         shift: null,
         code: 'CapsLock',
     },
@@ -210,14 +210,9 @@ export default [
         code: 'Enter',
     },
     {
-        small: 'ShiftLeft',
+        small: 'Shift',
         shift: null,
         code: 'ShiftLeft',
-    },
-    {
-        small: '\\',
-        shift: '/',
-        code: 'IntlBackslash',
     },
     {
         small: 'я',
@@ -270,17 +265,17 @@ export default [
         code: 'Slash',
     },
     {
-        small: 'ArrowUp',
+        small: '&uarr;',
         shift: null,
         code: 'ArrowUp',
     },
     {
-        small: 'ShiftRight',
+        small: 'Shift',
         shift: null,
         code: 'ShiftRight',
     },
     {
-        small: 'ControlLeft',
+        small: 'Ctrl',
         shift: null,
         code: 'ControlLeft',
     },
@@ -290,38 +285,48 @@ export default [
         code: 'MetaLeft',
     },
     {
-        small: 'AltLeft',
+        small: 'Alt',
         shift: null,
         code: 'AltLeft',
     },
     {
-        small: 'Space',
+        small: '',
         shift: null,
         code: 'Space',
     },
     {
-        small: 'AltRight',
+        small: 'Alt',
         shift: null,
         code: 'AltRight',
     },
     {
-        small: 'ArrowLeft',
+        small: '&larr;',
         shift: null,
         code: 'ArrowLeft',
     },
     {
-        small: 'ArrowDown',
+        small: '&darr;',
         shift: null,
         code: 'ArrowDown',
     },
     {
-        small: 'ArrowRight',
+        small: '&rarr;',
         shift: null,
         code: 'ArrowRight',
     },
     {
-        small: 'ControlRight',
+        small: 'Ctrl',
         shift: null,
         code: 'ControlRight',
+    },
+    {
+        small: 'Ru',
+        shift: null,
+        code: 'Lang',
+    },
+    {
+        small: 'Sound',
+        shift: null,
+        code: 'SoundButton',
     },
 ]
