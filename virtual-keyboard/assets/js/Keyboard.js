@@ -22,6 +22,9 @@ const soundContainer = create('div', 'sound-container', [
 
 export default class Keyboard {
     constructor(rowsOrder) {
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+        this.recognition = new SpeechRecognition()
+        this.recognition.interimResults = true
         this.rowsOrder = rowsOrder
         this.isCaps = false
     }
@@ -87,12 +90,13 @@ export default class Keyboard {
         const keyDiv = e.target.closest('.keyboard__key')
         if (!keyDiv) return;
         const {dataset: {code}} = keyDiv
-        keyDiv.addEventListener('mouseleave', this.resetButtonState)
+        if (code !== 'CapsLock') {
+            keyDiv.addEventListener('mouseleave', this.resetButtonState)
+        }
         this.handleEvent({code, type: e.type})
     }
 
     resetButtonState = ({target: {dataset: {code}}}) => {
-        // if (code.match('Shift')) this.switchUpperCase(false)
         const keyObj = this.keyButtons.find(key => key.code === code)
         keyObj.div.classList.remove('active')
         keyObj.div.removeEventListener('mouseleave', this.resetButtonState)
@@ -122,6 +126,9 @@ export default class Keyboard {
                 this.switchUpperCase(false)
                 keyObj.div.classList.remove('active')
             }
+
+            //Voice input
+            if (code.match(/Speech/)) this.speech()
 
             //Switch language
             if (code.match(/Lang/)) this.switchLanguage()
@@ -174,11 +181,23 @@ export default class Keyboard {
                 this.switchUpperCase(false)
             }
 
-            if (code.match(/Control/)) this.ctrlKey = false
-            if (code.match(/Alt/)) this.altKey = false
-
             if (!code.match(/Caps/)) keyObj.div.classList.remove('active')
         }
+    }
+
+    speech = () => {
+
+        this.recognition.onresult = e => {
+
+            this.output.value = Array.from(e.results)
+                .map(result => result[0])
+                .map(result => result.transcript)
+                .join('')
+
+        }
+        console.log(this.recognition)
+        // recognition.addEventListener('end', recognition.start)
+        this.recognition.start()
     }
 
     switchLanguage = () => {
@@ -200,7 +219,16 @@ export default class Keyboard {
             } else {
                 button.sub.innerHTML = ''
             }
-            button.letter.innerHTML = keyObj.small
+
+            if (button.code === 'SoundButton') {
+                if (storage.get('sounds', true)) {
+                    button.letter.innerHTML = '<div class="material-icons">volume_up</div>'
+                } else {
+                    button.letter.innerHTML = '<div class="material-icons">volume_off</div>'
+                }
+            } else {
+                button.letter.innerHTML = keyObj.small
+            }
         })
 
         if (this.isCaps) this.switchUpperCase(true)

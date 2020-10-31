@@ -329,4 +329,9 @@ export default [
         shift: null,
         code: 'SoundButton',
     },
+    {
+        small: '<div class="material-icons">mic</div>',
+        shift: null,
+        code: 'Speech',
+    },
 ]
