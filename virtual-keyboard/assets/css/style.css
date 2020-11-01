@@ -3,8 +3,19 @@
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
 
+:root {
+    font-size: 18px;
+}
+
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Jura', sans-serif;
+}
+
+textarea {
+    padding: 10px;
+    resize: vertical;
+    border: 1px solid grey;
+    outline: none;
 }
 
 .hide-keyboard-button {
@@ -25,7 +36,6 @@ body {
     outline: none;
     cursor: pointer;
     transition: .5s;
-    /*box-shadow: 0 0 7px rgba(0,0,0,0.5);*/
 }
 
 .hide-keyboard-button:hover {
@@ -40,13 +50,14 @@ body {
 }
 
 .keyboard__container {
-    max-width: 800px;
+    max-width: 820px;
     padding: 0 10px;
     margin: 0 auto;
 }
 
 .title {
-    margin: 0 0 20px 0;
+    text-align: center;
+    margin: 20px 0 20px 0;
 }
 
 .output {
@@ -61,12 +72,19 @@ body {
     bottom: 90px;
     margin: 0 auto;
     padding: 10px;
-    border: 1px solid black;
+    border: 1px solid grey;
     background: white;
     transition: .5s;
     display: grid;
     grid-template-rows: auto;
-    grid-gap: 7px;
+    grid-gap: 5px;
+}
+
+@media (max-width: 799px) {
+    .keyboard {
+        border-left: none;
+        border-right: none;
+    }
 }
 
 .hide-keyboard {
@@ -75,7 +93,7 @@ body {
 
 .keyboard__row {
     display: grid;
-    grid-gap: 7px;
+    grid-gap: 5px;
 }
 
 .keyboard__key {
@@ -87,10 +105,13 @@ body {
 
 .keyboard__key[data-fn='true'] {
     background: gray;
+    color: white;
 }
 
 .sub {
+    text-align: left;
     font-size: 0.8rem;
+    color: gray;
 }
 
 .letter {
@@ -99,15 +120,18 @@ body {
 
 .active {
     background: bisque !important;
+    color: black !important;
     transition: .2s;
 }
 
 .sub-active {
-
+    font-size: 1rem;
+    color: black;
 }
 
-.sub-inactive {
-
+.sub-active:not(:empty) + .sub-inactive {
+    font-size: 0.7rem;
+    color: gray;
 }
 
 .sound-container {
