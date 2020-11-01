@@ -69,7 +69,7 @@ export default class Keyboard {
             } else {
                 rowElement.style.gridTemplateColumns = `repeat(${row.length}, 1fr)`
             }
-            
+
             row.forEach(code => {
                 const keyObj = this.keyBase.find(key => key.code === code)
                 if (keyObj) {
@@ -97,14 +97,14 @@ export default class Keyboard {
         e.stopPropagation()
         const keyDiv = e.target.closest('.keyboard__key')
         if (!keyDiv) return;
-        const { dataset: { code } } = keyDiv
-        if (code !== 'CapsLock' && code !== 'Speech' && code !== 'ShiftLeft'&& code !== 'ShiftRight') {
+        const {dataset: {code}} = keyDiv
+        if (code !== 'CapsLock' && code !== 'Speech' && code !== 'ShiftLeft' && code !== 'ShiftRight') {
             keyDiv.addEventListener('mouseleave', this.resetButtonState)
         }
-        this.handleEvent({ code, type: e.type })
+        this.handleEvent({code, type: e.type})
     }
 
-    resetButtonState = ({ target: { dataset: { code } } }) => {
+    resetButtonState = ({target: {dataset: {code}}}) => {
         const keyObj = this.keyButtons.find(key => key.code === code)
         keyObj.div.classList.remove('active')
         keyObj.div.removeEventListener('mouseleave', this.resetButtonState)
@@ -112,7 +112,7 @@ export default class Keyboard {
 
     handleEvent = (e) => {
         if (e.stopPropagation) e.stopPropagation()
-        const { code, type } = e
+        const {code, type} = e
         const keyObj = this.keyButtons.find(key => key.code === code)
         if (!keyObj) return;
         this.output.focus()
@@ -159,30 +159,20 @@ export default class Keyboard {
 
             //Play sounds
             if (storage.get('sounds', true)) {
-                const childs = Array.prototype.slice.call(soundContainer.children)
-                childs.forEach(i => i.currentTime = 0)
-                if (this.container.dataset.language === 'ru') {
-                    if (keyObj.small.match(/back/)) {
-                        soundContainer.children[1].play()
-                    } else if (keyObj.small.match(/caps/)) {
-                        soundContainer.children[2].play()
-                    } else if (keyObj.small.match(/return/)) {
-                        soundContainer.children[3].play()
-                    } else if (keyObj.small.match(/upgrade/)) {
-                        soundContainer.children[4].play()
-                    } else {
-                        soundContainer.children[0].play()
-                    }
+                Array.prototype.slice.call(soundContainer.children).forEach(i => i.currentTime = 0)
+
+                if (keyObj.small.match(/back/)) {
+                    soundContainer.children[1].play()
+                } else if (keyObj.small.match(/caps/)) {
+                    soundContainer.children[2].play()
+                } else if (keyObj.small.match(/return/)) {
+                    soundContainer.children[3].play()
+                } else if (keyObj.small.match(/upgrade/)) {
+                    soundContainer.children[4].play()
                 } else {
-                    if (keyObj.small.match(/back/)) {
-                        soundContainer.children[1].play()
-                    } else if (keyObj.small.match(/caps/)) {
-                        soundContainer.children[2].play()
-                    } else if (keyObj.small.match(/return/)) {
-                        soundContainer.children[3].play()
-                    } else if (keyObj.small.match(/upgrade/)) {
-                        soundContainer.children[4].play()
-                    } else {
+                    if (this.container.dataset.language === 'ru') {
+                        soundContainer.children[0].play()
+                    } else if (this.container.dataset.language === 'en') {
                         soundContainer.children[5].play()
                     }
                 }
@@ -210,22 +200,22 @@ export default class Keyboard {
             } else {
                 this.recognition.lang = 'en-US'
             }
-    
+
             this.recognition.onresult = e => {
                 let cursorPos = this.output.selectionStart
                 const left = this.output.value.slice(0, cursorPos)
                 const right = this.output.value.slice(cursorPos)
-    
+
                 const transcript = e.results[0][0].transcript.toLowerCase()
-    
+
                 if (e.results[0].isFinal) {
                     this.output.value = `${left} ${transcript} ${right}`
                     cursorPos = left.length + transcript.length + 1
-    
+
                     this.output.setSelectionRange(cursorPos, cursorPos)
                 }
             }
-    
+
             this.recognition.onend = () => this.recognition.start()
             this.recognition.start()
         } else {
