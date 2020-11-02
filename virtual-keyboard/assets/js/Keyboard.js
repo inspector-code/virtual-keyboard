@@ -159,21 +159,25 @@ export default class Keyboard {
 
             //Play sounds
             if (storage.get('sounds', true)) {
-                Array.prototype.slice.call(soundContainer.children).forEach(i => i.currentTime = 0)
-
                 if (keyObj.small.match(/back/)) {
                     soundContainer.children[1].play()
+                    soundContainer.children[1].currentTime = 0
                 } else if (keyObj.small.match(/caps/)) {
                     soundContainer.children[2].play()
+                    soundContainer.children[2].currentTime = 0
                 } else if (keyObj.small.match(/return/)) {
                     soundContainer.children[3].play()
+                    soundContainer.children[3].currentTime = 0
                 } else if (keyObj.small.match(/upgrade/)) {
                     soundContainer.children[4].play()
+                    soundContainer.children[4].currentTime = 0
                 } else {
                     if (this.container.dataset.language === 'ru') {
                         soundContainer.children[0].play()
+                        soundContainer.children[0].currentTime = 0
                     } else if (this.container.dataset.language === 'en') {
                         soundContainer.children[5].play()
+                        soundContainer.children[5].currentTime = 0
                     }
                 }
             }
