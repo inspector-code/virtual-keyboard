@@ -1,6 +1,6 @@
 import * as storage from './storage.js'
 import create from './utils/create.js'
-import language from './layouts/index.js'
+import language from './layouts'
 import Key from './Key.js'
 
 const main = create('div', 'keyboard__container',
